@@ -9,11 +9,6 @@ if Rails.env.production?
 end
 
 require "rspec/rails"
-require "sidekiq/testing"
-require "sidekiq_unique_jobs/testing"
-require "chewy/rspec"
-
-Sidekiq::Testing.fake!
 
 class ActionDispatch::TestResponse
   def json
@@ -31,20 +26,22 @@ module StoreApi
         }
       end
     end
+
+    module GeneralHelpers
+      def timestamp(timestamp)
+        timestamp.utc.iso8601 unless timestamp.nil?
+      end
+    end
   end
 end
 
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
+  config.filter_rails_from_backtrace!
+  config.use_transactional_fixtures = true
+
   config.include FactoryBot::Syntax::Methods
+
+  config.include StoreApi::RSpec::GeneralHelpers
   config.include StoreApi::RSpec::RequestHelpers, type: :request
-
-  config.after { Kredis.clear_all } # cleans up all the mess we created after testing
-
-  config.before :each do
-    I18n.locale = :en
-  end
-
-  RSpec::Sidekiq.configure do |config|
-    config.warn_when_jobs_not_processed_by_sidekiq = false
-  end
 end
