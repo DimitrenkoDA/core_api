@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore IDEA files
+.idea
+
 # Ignore all environment files
 .env
 
@@ -34,3 +37,4 @@
 # Ignore history files
 .irb_history
 .byebug_history
+/spec/examples.txt
