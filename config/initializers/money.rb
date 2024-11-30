@@ -1,5 +1,3 @@
-ISO3166.configuration.enable_currency_extension!
-
 MoneyRails.configure do |config|
   config.locale_backend = :i18n
   config.default_currency = :eur

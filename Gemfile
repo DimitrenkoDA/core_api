@@ -17,7 +17,6 @@ gem "jwt"
 gem "faker"
 gem "dry-validation"
 gem "money-rails"
-gem "countries"
 gem "rotp"
 gem "ice_cube"
 
@@ -28,4 +27,9 @@ group :development, :test do
   gem "dotenv-rails", require: "dotenv/rails-now"
   gem "factory_bot_rails"
   gem "rspec-rails"
+end
+
+group :test do
+  gem "webmock"
+  gem "timecop"
 end
