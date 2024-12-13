@@ -94,6 +94,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.3.0)
     date (3.3.4)
     diff-lcs (1.5.1)
     dotenv (2.8.1)
@@ -172,6 +173,7 @@ GEM
       activesupport (>= 6.0.0)
       redis (>= 4.2, < 6)
     language_server-protocol (3.17.0.3)
+    logger (1.6.2)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -217,6 +219,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
+    ostruct (0.6.1)
     parallel (1.24.0)
     parser (3.3.0.5)
       ast (~> 2.4.1)
@@ -362,6 +365,7 @@ DEPENDENCIES
   bootsnap
   bundler-audit
   byebug
+  csv
   dotenv-rails
   dry-container
   dry-validation
@@ -372,7 +376,9 @@ DEPENDENCIES
   ice_cube
   jwt
   kredis
+  logger
   money-rails
+  ostruct
   pg
   puma (>= 5.0)
   rails (~> 7.1.4)
@@ -386,7 +392,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.5.4
