@@ -15,6 +15,11 @@ module API
         handler = ::Users::Handlers::Show.new(self)
         handler.handle!
       end
+
+      def update
+        handler = ::Users::Handlers::Update.new(self)
+        handler.handle!
+      end
     end
   end
 end
