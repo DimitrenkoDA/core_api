@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   post "/v1/authentications/:authentication_id/authenticate", to: "api/v1/authentications#authenticate"
   post "/v1/users/login", to: "api/v1/users#login"
   post "/v1/users/sign_up", to: "api/v1/users#sign_up"
+
+  patch "/v1/users/:user_id/", to: "api/v1/users#update"
 end
