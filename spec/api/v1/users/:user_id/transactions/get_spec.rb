@@ -49,7 +49,7 @@ RSpec.describe "GET /v1/users/:user_id/transactions" do
   context "when user is admin" do
     let!(:access_token) { System::Session.token(user) }
 
-    it "responds with 200 and returns parking schedules" do
+    it "responds with 200" do
       subject
 
       expect(response.status).to eq(200)
@@ -69,7 +69,7 @@ RSpec.describe "GET /v1/users/:user_id/transactions" do
         }
       end
 
-      it "responds with 200 and returns parking schedules" do
+      it "responds with 200" do
         subject
 
         expect(response.status).to eq(200)
@@ -89,13 +89,33 @@ RSpec.describe "GET /v1/users/:user_id/transactions" do
         }
       end
 
-      it "responds with 200 and returns parking schedules" do
+      it "responds with 200" do
         subject
 
         expect(response.status).to eq(200)
 
         expect(response.json[:transactions].size).to eq(1)
         expect(response.json[:transactions][0][:id]).to eq(transaction_a.id)
+
+        expect(response.json[:params]).to be_present
+      end
+    end
+
+    context "when amount borders are specified" do
+      let(:params) do
+        {
+          less: 9000,
+          more: 6000
+        }
+      end
+
+      it "responds with 200" do
+        subject
+
+        expect(response.status).to eq(200)
+
+        expect(response.json[:transactions].size).to eq(1)
+        expect(response.json[:transactions][0][:id]).to eq(transaction_b.id)
 
         expect(response.json[:params]).to be_present
       end
