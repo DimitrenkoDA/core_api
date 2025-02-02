@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.5"
+ruby "3.4.1"
 gem "rails", "~> 7.1.4"
 gem "puma", ">= 5.0"
 gem "kredis"
