@@ -1,6 +1,6 @@
 module UserCategories
   module Handlers
-    class Show < ApplicationHandler
+    class Destroy < ApplicationHandler
       params do
         required(:user_category_id).filled(:integer)
       end
@@ -8,8 +8,10 @@ module UserCategories
       def handle
         authorize!
 
+        category.destroy!
+
         render status: 200 do
-          json { UserCategories::Presenters::Show.new(category).as_json(user: true) }
+          json { }
         end
       end
 

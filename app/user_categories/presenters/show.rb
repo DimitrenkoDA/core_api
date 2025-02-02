@@ -17,7 +17,7 @@ module UserCategories
           updated_at: timestamp(category.updated_at),
         }
 
-        json[:description] if category.description.present?
+        json[:description] = category.description if category.description.present?
 
         json
       end

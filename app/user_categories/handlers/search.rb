@@ -1,9 +1,11 @@
 module UserCategories
   module Handlers
     class Search < ApplicationHandler
-      payload do
+      params do
         required(:user_id).filled(:integer)
+      end
 
+      payload do
         optional(:query).maybe(:string)
         optional(:kinds).array(:string, included_in?: UserCategory.kinds.keys)
 
@@ -15,7 +17,7 @@ module UserCategories
         authorize!
 
         categories = user.categories
-        categories = categories.where(kind: params[:kind]) if payload.key?(:kind)
+        categories = categories.where(kind: params[:kinds]) if payload.key?(:kinds)
 
         if payload[:query].present?
           categories = categories.where(
@@ -32,7 +34,7 @@ module UserCategories
       end
 
       private def user
-        @user ||= User.find(payload[:user_id])
+        @user ||= User.find(params[:user_id])
       end
 
       private def authorize!
