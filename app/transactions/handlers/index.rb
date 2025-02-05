@@ -7,6 +7,8 @@ module Transactions
         optional(:polarity).filled(:string, included_in?: Transaction.polarities.keys)
         optional(:from).filled(:date_time)
         optional(:till).filled(:date_time)
+        optional(:less).filled(:integer)
+        optional(:more).filled(:integer)
 
         optional(:limit).filled(:integer, gteq?: 0, lteq?: ApplicationRecord::MAX_LIMIT)
         optional(:offset).filled(:integer, gteq?: 0)
@@ -19,6 +21,8 @@ module Transactions
         transactions = transactions.where(polarity: params[:polarity]) if params.key?(:polarity)
         transactions = transactions.where("created_at >= ?", params[:from]) if params.key?(:from)
         transactions = transactions.where("created_at <= ?", params[:till]) if params.key?(:till)
+        transactions = transactions.where("amount_cents <= ?", params[:less]) if params.key?(:less)
+        transactions = transactions.where("amount_cents >= ?", params[:more]) if params.key?(:more)
 
         transactions = transactions.order(created_at: :desc).limit(limit).offset(offset)
 
