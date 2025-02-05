@@ -17,7 +17,7 @@ module UserCategories
         authorize!
 
         categories = user.categories
-        categories = categories.where(kind: params[:kinds]) if payload.key?(:kinds)
+        categories = categories.where(kind: payload[:kinds]) if payload.key?(:kinds)
 
         if payload[:query].present?
           categories = categories.where(

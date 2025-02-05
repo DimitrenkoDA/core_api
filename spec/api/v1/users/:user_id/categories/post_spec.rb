@@ -14,7 +14,7 @@ RSpec.describe "POST /v1/users/:user_id/categories" do
       kind: "payment",
       name: "Taxi",
       colour_code: "#FFF000",
-      description: "Taxi services like Uber, Yandex, etc",
+      description: "Taxi services like Uber, Yandex, etc"
     }
   end
 
