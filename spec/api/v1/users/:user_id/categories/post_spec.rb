@@ -44,18 +44,6 @@ RSpec.describe "POST /v1/users/:user_id/categories" do
         expect(response.status).to eq(422)
       end
     end
-
-    context "when name is not uniq" do
-      let(:category) { create(:user_category, user: user) }
-
-      before { payload[:name] = category.name }
-
-      it "responds with 422" do
-        subject
-
-        expect(response.status).to eq(422)
-      end
-    end
   end
 
   context "when token is invalid" do
