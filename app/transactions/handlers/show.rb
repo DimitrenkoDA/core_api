@@ -20,7 +20,7 @@ module Transactions
       private def authorize!
         authenticate!
 
-        return if current_session.kind.user? && transaction.owned_by?(current_session.owner)
+        return if current_session.kind.user? && current_session.owned_by?(transaction.user)
 
         access_denied!
       end

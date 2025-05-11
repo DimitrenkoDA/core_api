@@ -7,4 +7,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "CSV"
   inflect.acronym "PAN"
   inflect.acronym "PIN"
+  inflect.acronym "CRUD"
 end
