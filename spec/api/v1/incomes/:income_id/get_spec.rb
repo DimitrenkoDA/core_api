@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "GET /v1/transactions/:transaction_id" do
-  subject { get "/v1/transactions/#{transaction.id}", headers: default_headers.merge(headers) }
+RSpec.describe "GET /v1/incomes/:income_id" do
+  subject { get "/v1/incomes/#{income.id}", headers: default_headers.merge(headers) }
 
   let(:headers) do
     {
@@ -10,7 +10,26 @@ RSpec.describe "GET /v1/transactions/:transaction_id" do
   end
 
   let!(:user) { create(:user) }
-  let!(:transaction) { create(:transaction, user: user, amount: Money.from_amount(100, "EUR")) }
+
+  let!(:transaction) do
+    create(
+      :transaction,
+      user: user,
+      amount: Money.from_amount(100, "EUR")
+    )
+  end
+
+  let!(:category_a) { create(:user_category, user: user, name: "Salary") }
+  let!(:category_b) { create(:user_category, user: user, name: "Work 1") }
+
+  let!(:income) do
+    create(
+      :income,
+      user: user,
+      balance_transaction: transaction,
+      categories: [category_a, category_b]
+    )
+  end
 
   context "when current session owner is user" do
     let!(:access_token) { System::Session.token(user) }
@@ -20,16 +39,17 @@ RSpec.describe "GET /v1/transactions/:transaction_id" do
 
       expect(response.status).to eq(200)
 
-      expect(response.json[:id]).to eq(transaction.id)
-      expect(response.json[:user]).to be_present
+      expect(response.json[:id]).to eq(income.id)
+      expect(response.json[:user_id]).to eq(user.id)
       expect(response.json[:amount][:value]).to eq(100.0)
       expect(response.json[:amount][:currency]).to eq("EUR")
       expect(response.json[:created_at]).to be_present
       expect(response.json[:updated_at]).to be_present
+      expect(response.json[:categories]).to be_present
     end
   end
 
-  context "when someone else trying to get user's transaction" do
+  context "when someone else trying to get income details" do
     let!(:another_user) { create(:user) }
     let!(:access_token) { System::Session.token(another_user) }
 

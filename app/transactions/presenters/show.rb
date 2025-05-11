@@ -10,7 +10,6 @@ module Transactions
       def as_json(options = {})
         json = {
           id: transaction.id,
-          polarity: transaction.polarity,
           amount: money(transaction.amount),
           created_at: timestamp(transaction.created_at),
           updated_at: timestamp(transaction.updated_at),

@@ -9,8 +9,4 @@ class UserCategory < ApplicationRecord
     payment: "payment",
     income: "income"
   }
-
-  def owned_by?(someone)
-    user == someone
-  end
 end

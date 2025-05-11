@@ -8,6 +8,8 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :last_name
       t.date :birth_date
 
+      t.jsonb :balances, default: {}, null: false
+
       t.timestamps
     end
   end
