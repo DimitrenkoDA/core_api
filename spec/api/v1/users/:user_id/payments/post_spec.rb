@@ -12,7 +12,7 @@ RSpec.describe "POST /v1/users/:user_id/payments" do
   let(:payload) do
     {
       amount: {
-        value: 100.0,
+        value: 100,
         currency: "RSD"
       },
       note: "Something",
