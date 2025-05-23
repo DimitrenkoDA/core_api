@@ -16,6 +16,10 @@ module Payments
           updated_at: timestamp(payment.updated_at),
         }
 
+        if payment.note.present?
+          json[:note] = payment.note
+        end
+
         if payment.categories.present? && options.fetch(:categories, false)
           json[:categories] = payment.categories.map do |category|
             ::UserCategories::Presenters::Show.new(category).as_json
