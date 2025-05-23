@@ -1,4 +1,4 @@
-name: "Run tests"
+name: "CI"
 
 on:
   workflow_call:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   rspec:
+    name: "Run rspec"
     runs-on: ubuntu-latest
     services:
       redis:
@@ -55,6 +56,7 @@ jobs:
           POSTGRES_PASSWORD: "postgres"
 
   checks:
+    name: "Run consistence checks"
     runs-on: ubuntu-latest
     services:
       redis:
@@ -99,3 +101,35 @@ jobs:
           POSTGRES_HOST: "localhost"
           POSTGRES_USER: "postgres"
           POSTGRES_PASSWORD: "postgres"
+
+  linter:
+    name: "Run linter"
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: "redis:6.2"
+        ports:
+          - "6379:6379"
+      postgres:
+        image: "postgres:14"
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        ports:
+          - "5432:5432"
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup Ruby"
+        uses: "ruby/setup-ruby@v1"
+        with:
+          bundler-cache: true
+
+      - name: "Run RuboCop"
+        run: bundle exec rubocop
