@@ -1,0 +1,100 @@
+name: "Run tests"
+
+on:
+  workflow_call:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: "redis:6.2"
+        ports:
+          - "6379:6379"
+      postgres:
+        image: "postgres:14"
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        ports:
+          - "5432:5432"
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup Ruby"
+        uses: "ruby/setup-ruby@v1"
+        with:
+          bundler-cache: true
+
+      - name: "Create database"
+        run: "bin/rails db:create db:schema:load db:migrate"
+        env:
+          RAILS_ENV: "test"
+          REDIS_URL: "redis://localhost:6379"
+          POSTGRES_HOST: "localhost"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "postgres"
+
+      - name: "Tests"
+        run: "bundle exec rspec"
+        env:
+          RAILS_ENV: "test"
+          REDIS_URL: "redis://localhost:6379"
+          POSTGRES_HOST: "localhost"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "postgres"
+
+  checks:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: "redis:6.2"
+        ports:
+          - "6379:6379"
+      postgres:
+        image: "postgres:14"
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        ports:
+          - "5432:5432"
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v3"
+
+      - name: "Setup Ruby"
+        uses: "ruby/setup-ruby@v1"
+        with:
+          bundler-cache: true
+
+      - name: "Create database"
+        run: "bin/rails db:create db:schema:load db:migrate"
+        env:
+          RAILS_ENV: "test"
+          REDIS_URL: "redis://localhost:6379"
+          POSTGRES_HOST: "localhost"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "postgres"
+
+      - name: "Check folder structure and class names"
+        run: bundle exec rails runner "Zeitwerk::Loader.eager_load_all"
+        env:
+          RAILS_ENV: "test"
+          REDIS_URL: "redis://localhost:6379"
+          POSTGRES_HOST: "localhost"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "postgres"
