@@ -31,10 +31,6 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-# Ignore master key for decrypting credentials and more.
-/config/credentials/development.key
-/config/credentials/test.key
-
 # Ignore history files
 .irb_history
 .byebug_history
