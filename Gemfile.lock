@@ -339,6 +339,15 @@ GEM
     rubocop-ast (1.44.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-rails (2.32.0)
+      activesupport (>= 4.2.0)
+      lint_roller (~> 1.1)
+      rack (>= 1.1)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.44.0, < 2.0)
+    rubocop-rspec (3.6.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     sidekiq (7.3.9)
@@ -415,6 +424,8 @@ DEPENDENCIES
   rotp
   rspec-rails
   rubocop
+  rubocop-rails
+  rubocop-rspec
   sidekiq (~> 7, < 8)
   sidekiq-cron
   strong_migrations
