@@ -98,6 +98,10 @@ class ApplicationHandler
     render status: 404 do
       json { Errors::Error.alert("Not Found") }
     end
+  rescue ActiveRecord::RecordNotUnique
+    render status: 422 do
+      json { Errors::Error.alert("Entity already exists") }
+    end
   end
 
   def handle
