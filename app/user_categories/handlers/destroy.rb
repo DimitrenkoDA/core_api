@@ -11,7 +11,7 @@ module UserCategories
         category.destroy!
 
         render status: 200 do
-          json { }
+          json {}
         end
       end
 
