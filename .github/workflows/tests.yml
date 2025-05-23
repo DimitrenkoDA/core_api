@@ -1,4 +1,4 @@
-name: "Run tests"
+name: "Tests"
 
 on:
   workflow_call:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   rspec:
+    name: "Run rspec"
     runs-on: ubuntu-latest
     services:
       redis:
@@ -55,6 +56,7 @@ jobs:
           POSTGRES_PASSWORD: "postgres"
 
   checks:
+    name: "Run consistence checks"
     runs-on: ubuntu-latest
     services:
       redis:
@@ -101,6 +103,7 @@ jobs:
           POSTGRES_PASSWORD: "postgres"
 
   linter:
+    name: "Run linter"
     runs-on: ubuntu-latest
     services:
       redis:
