@@ -19,6 +19,7 @@ RSpec.describe "POST /v1/users/:user_id/categories/search" do
     create(
       :user_category,
       user: user,
+      id: 1111,
       name: "Taxi",
       kind: :payment,
       created_at: 1.day.ago
@@ -29,6 +30,7 @@ RSpec.describe "POST /v1/users/:user_id/categories/search" do
     create(
       :user_category,
       user: user,
+      id: 2222,
       name: "Gym",
       kind: :payment,
       created_at: 1.hour.ago
@@ -39,6 +41,7 @@ RSpec.describe "POST /v1/users/:user_id/categories/search" do
     create(
       :user_category,
       user: user,
+      id: 3333,
       name: "Tax refunds",
       kind: :income,
       created_at: 10.minutes.ago

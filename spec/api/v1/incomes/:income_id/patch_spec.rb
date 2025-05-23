@@ -53,6 +53,7 @@ RSpec.describe "PATCH /v1/incomes/:income_id" do
       expect(response.json[:user_id]).to eq(user.id)
       expect(response.json[:amount][:value]).to eq(70.0)
       expect(response.json[:amount][:currency]).to eq("USD")
+      expect(response.json[:note]).to eq(payload[:note])
       expect(response.json[:created_at]).to be_present
       expect(response.json[:updated_at]).to be_present
       expect(response.json[:categories]).to be_present
