@@ -11,6 +11,7 @@ module Incomes
           required(:currency).filled(:string)
         end
 
+        optional(:created_at).filled(:date_time)
         optional(:note).maybe(:string)
         optional(:category_ids).array(:integer)
       end
@@ -30,6 +31,10 @@ module Incomes
           amount = Money.from_amount(payload[:amount][:value], payload[:amount][:currency])
 
           income.amount = amount
+        end
+
+        if payload.key?(:created_at)
+          income.created_at = payload[:created_at]
         end
 
         if payload.key?(:note)

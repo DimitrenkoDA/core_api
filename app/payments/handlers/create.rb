@@ -11,6 +11,7 @@ module Payments
           required(:currency).filled(:string)
         end
 
+        optional(:created_at).filled(:date_time)
         optional(:note).filled(:string)
         optional(:category_ids).array(:integer)
       end
@@ -29,7 +30,12 @@ module Payments
         payment = ActiveRecord::Base.transaction do
           amount = Money.from_amount(payload[:amount][:value], payload[:amount][:currency])
 
-          payment = Payment.new(user: user, amount: amount, note: payload[:note])
+          payment = Payment.new(
+            user: user,
+            amount: amount,
+            note: payload[:note],
+            created_at: params[:created_at] || Time.zone.now
+          )
 
           transaction = Transaction.create!(user: user, amount: amount * -1)
 

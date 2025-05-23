@@ -11,6 +11,7 @@ module Payments
           required(:currency).filled(:string)
         end
 
+        optional(:created_at).filled(:date_time)
         optional(:note).maybe(:string)
         optional(:category_ids).array(:integer)
       end
@@ -38,6 +39,10 @@ module Payments
           else
             payment.note = nil
           end
+        end
+
+        if payload.key?(:created_at)
+          payment.created_at = payload[:created_at]
         end
 
         if payload.key?(:category_ids)

@@ -16,6 +16,10 @@ module Incomes
           updated_at: timestamp(income.updated_at),
         }
 
+        if income.note.present?
+          json[:note] = income.note
+        end
+
         if income.categories.present? && options.fetch(:categories, false)
           json[:categories] = income.categories.map do |category|
             ::UserCategories::Presenters::Show.new(category).as_json

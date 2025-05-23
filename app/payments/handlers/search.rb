@@ -9,8 +9,8 @@ module Payments
         optional(:from).filled(:date_time)
         optional(:till).filled(:date_time)
 
-        optional(:currency).filled(:string)
         optional(:amount).hash do
+          optional(:currency).filled(:string)
           optional(:more).filled(:float)
           optional(:less).filled(:float)
         end
@@ -29,15 +29,26 @@ module Payments
         payments = payments.where("created_at >= ?", payload[:from]) if payload.key?(:from)
         payments = payments.where("created_at < ?", payload[:till]) if payload.key?(:till)
 
-        payments = payments.where(amount_currency: payload[:currency]) if payload.key?(:currency)
-
         if payload.key?(:amount)
-          payments = payments.where("amount_cents >= ?", payload[:amount][:more])
-          payments = payments.where("amount_cents <= ?", payload[:amount][:less])
+          if payload[:amount].key?(:currency)
+            payments = payments.where(amount_currency: payload[:amount][:currency])
+
+            if payload[:amount].key?(:more)
+              more = Money.from_amount(payload[:amount][:more], payload[:amount][:currency]).cents
+
+              payments = payments.where("amount_cents > ?", more)
+            end
+
+            if payload[:amount].key?(:less)
+              less = Money.from_amount(payload[:amount][:less], payload[:amount][:currency]).cents
+
+              payments = payments.where("amount_cents < ?", less)
+            end
+          end
         end
 
         if payload.key?(:category_ids)
-          payments = payments.joins(:categories).where("categories.id IN (?)", payload[:category_ids])
+          payments = payments.joins(:categories).where(user_categories: { id: payload[:category_ids] })
         end
 
         payments = payments.preload(:categories)
