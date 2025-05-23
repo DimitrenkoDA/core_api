@@ -19,7 +19,7 @@ spec/
 test/
 
 # Ignore all default key files.
-/config/master.key
+/config/credentials/development.key
 /config/credentials/*.key
 
 # Ignore all logfiles and tempfiles.
