@@ -29,7 +29,7 @@ group :development, :test do
   gem 'rubocop-rspec', require: false # если используешь RSpec
   gem "bundler-audit", require: false
   gem "byebug", platforms: %i[mri mingw x64_mingw]
-  gem "dotenv-rails", require: "dotenv/rails-now"
+  gem "dotenv-rails", require: "dotenv/load"
   gem "factory_bot_rails"
   gem "rspec-rails"
 end
