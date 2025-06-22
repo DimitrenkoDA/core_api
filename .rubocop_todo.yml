@@ -214,11 +214,11 @@ Style/IfUnlessModifier:
     - 'app/authentications/presenters/show.rb'
     - 'app/errors/error.rb'
     - 'app/incomes/handlers/create.rb'
-    - 'app/incomes/handlers/search.rb'
+    - 'app/incomes/handlers/index.rb'
     - 'app/incomes/handlers/update.rb'
     - 'app/incomes/presenters/show.rb'
     - 'app/payments/handlers/create.rb'
-    - 'app/payments/handlers/search.rb'
+    - 'app/payments/handlers/index.rb'
     - 'app/payments/handlers/update.rb'
     - 'app/payments/presenters/show.rb'
     - 'app/transactions/presenters/show.rb'
@@ -281,8 +281,8 @@ Style/SelfAssignment:
 # Configuration parameters: AllowModifier.
 Style/SoleNestedConditional:
   Exclude:
-    - 'app/incomes/handlers/search.rb'
-    - 'app/payments/handlers/search.rb'
+    - 'app/incomes/handlers/index.rb'
+    - 'app/payments/handlers/index.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).

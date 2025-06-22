@@ -9,7 +9,7 @@ module Users
         authorize!
 
         render status: 200 do
-          json { Users::Presenters::Show.new(user).as_json }
+          json { Users::Presenters::Show.new(user).as_json(balances: true) }
         end
       end
 
