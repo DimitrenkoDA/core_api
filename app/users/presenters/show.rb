@@ -15,7 +15,9 @@ module Users
           updated_at: timestamp(user.updated_at),
         }
 
-        json[:balances] = user.balances if user.balances.present?
+        if options.fetch(:balances, false) && user.balances.present?
+          json[:balances] = user.balances
+        end
 
         json[:first_name] = user.first_name if user.first_name.present?
         json[:last_name] = user.last_name if user.last_name.present?

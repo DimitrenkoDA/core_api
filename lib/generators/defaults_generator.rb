@@ -10,8 +10,8 @@ class DefaultsGenerator < Rails::Generators::NamedBase
               handler.handle!
             end
 
-            def index
-              handler = ::#{plural_name.camelcase}::Handlers::Index.new(self)
+            def search
+              handler = ::#{plural_name.camelcase}::Handlers::Search.new(self)
               handler.handle!
             end
 
@@ -51,7 +51,7 @@ class DefaultsGenerator < Rails::Generators::NamedBase
       end
     RUBY
 
-    create_file "app/#{plural_name}/presenters/search.rb", <<~RUBY
+    create_file "app/#{plural_name}/presenters/index.rb", <<~RUBY
       module #{plural_name.camelcase}
         module Presenters
           class Index < ApplicationPresenter
@@ -161,7 +161,7 @@ class DefaultsGenerator < Rails::Generators::NamedBase
     create_file "app/#{plural_name}/handlers/search.rb", <<~RUBY
       module #{plural_name.camelcase}
         module Handlers
-          class Index < ApplicationHandler
+          class Search < ApplicationHandler
             params do
             end
 

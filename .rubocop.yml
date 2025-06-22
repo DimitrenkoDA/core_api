@@ -1,1 +1,17 @@
 inherit_from: .rubocop_todo.yml
+
+Lint/MissingSuper:
+  Enabled: false
+
+Style/SoleNestedConditional:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Exclude:
+    - 'app/application_handler.rb'
+    - 'app/errors/**/*'
+    - 'app/**/presenters/**/*'
+    - 'app/system/**/*'

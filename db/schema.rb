@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_13_192048) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_22_094430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_13_192048) do
     t.index ["owner_type", "owner_id"], name: "index_authentications_on_owner"
     t.index ["prev_authentication_id"], name: "index_authentications_on_prev_authentication_id"
     t.index ["step"], name: "index_authentications_on_step"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id", "user_id"], name: "index_contacts_on_owner_id_and_user_id", unique: true
+    t.index ["owner_id"], name: "index_contacts_on_owner_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "incomes", force: :cascade do |t|
