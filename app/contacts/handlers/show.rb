@@ -21,7 +21,7 @@ module Contacts
         authenticate!
 
         return if current_session.kind.user? && current_session.owned_by?(contact.owner)
-    
+
         access_denied!
       end
     end
