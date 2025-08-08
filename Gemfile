@@ -22,11 +22,13 @@ gem "ice_cube"
 gem "csv" # not a part of standard library as of Ruby 3.4.0
 gem "logger" # not a part of standard library as of Ruby 3.5.0
 gem "ostruct" # not a part of standard library as of Ruby 3.5.0
+gem "config"
+gem "resend"
 
 group :development, :test do
   gem "rubocop", require: false
   gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false # если используешь RSpec
+  gem 'rubocop-rspec', require: false
   gem "bundler-audit", require: false
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "dotenv-rails", require: "dotenv/load"

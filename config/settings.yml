@@ -1,0 +1,5 @@
+defaults:
+  open_timeout: <%= ENV.fetch("OPEN_TIMEOUT", 60) %>
+  read_timeout: <%= ENV.fetch("READ_TIMEOUT", 360) %>
+emails:
+  from: noreply@sokomary.ru
