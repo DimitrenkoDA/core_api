@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_22_094430) do
   end
 
   create_table "user_categories", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "kind", null: false
     t.string "colour_code", default: "#fff000", null: false
     t.string "name", null: false
@@ -108,5 +108,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_22_094430) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "contacts", "users", column: "owner_id"
+  add_foreign_key "incomes", "transactions"
+  add_foreign_key "incomes", "users"
+  add_foreign_key "payments", "transactions"
+  add_foreign_key "payments", "users"
   add_foreign_key "transactions", "users"
+  add_foreign_key "user_categories", "users"
 end
